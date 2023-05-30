@@ -11,13 +11,13 @@ const modalRoot = document.querySelector('#modal-root');
 
 export class Modal extends React.Component {
   componentDidMount() {
-    console.log('Modal componentDidMount');
+    // console.log('Modal componentDidMount');
 
     window.addEventListener('keydown', this.handleKeydown);
   }
 
   componentWillUnmount() {
-    console.log('Modal componentWillUnmount');
+    // console.log('Modal componentWillUnmount');
 
     window.removeEventListener('keydown', this.handleKeydown);
   }
@@ -29,9 +29,12 @@ export class Modal extends React.Component {
     }
   };
 
-  handleBackdropClick = () => {
-    console.log('Click');
-    this.props.handleCloseModal();
+  handleBackdropClick = evt => {
+    // console.log('Click');
+
+    if (evt.currentTarget === evt.target) {
+      this.props.handleCloseModal();
+    }
   };
 
   render() {
