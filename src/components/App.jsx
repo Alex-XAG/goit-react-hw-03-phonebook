@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal } from './Modal/Modal';
 import { Clock } from './Clock/Clock';
+import { Tabs } from './Tabs/Tabs';
 
 export class App extends React.Component {
   state = {
@@ -23,6 +24,7 @@ export class App extends React.Component {
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          flexDirection: 'column',
           fontSize: 40,
           color: '#010101',
         }}
@@ -30,7 +32,8 @@ export class App extends React.Component {
         <button type="button" onClick={this.toggleModal}>
           Open Modal
         </button>
-        <Clock />
+        <Tabs />
+        {!showModal && <Clock />}
         {showModal && (
           <Modal handleCloseModal={this.toggleModal}>
             <h1>Glory to Ukraine!!! This is content of Modal how children</h1>
