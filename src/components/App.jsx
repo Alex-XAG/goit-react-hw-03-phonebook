@@ -1,75 +1,112 @@
 import React from 'react';
-import videos from '../videos.json';
-import { Player } from './Player/Player';
-import { VideoList } from './VideoList/VideoList';
-////////////////////// Imports LESSON 1/////////////////////
-// import { Modal } from './Modal/Modal';
-// import { Clock } from './Clock/Clock';
-// import { Tabs } from './Tabs/Tabs';
-// import { IconBtn } from './IconBtn/IconBtn';
-////////////////////////////////////////////////////////////
+import { nanoid } from 'nanoid';
+import { ContactForm } from './ContactForm/ContactForm';
+import { ContactList } from './ContactList/ContactList';
+import { Filter } from './Filter/Filter';
 
 export class App extends React.Component {
   state = {
-    selectedVideo: null,
+    contacts: [
+      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+    ],
+    filter: '',
   };
 
-  selectVideo = link => {
-    this.setState({ selectedVideo: link });
-  };
-  ////////////////////////// Lesson 1 ///////////////////
-  // state = {
-  //   todos: [],
-  //   filter: '',
-  //   showModal: false,
-  // };
+  componentDidMount() {
+    const contanctsLS = JSON.parse(localStorage.getItem('contacts'));
+    if (contanctsLS) {
+      this.setState({ contacts: contanctsLS });
+    }
+  }
 
-  // toggleModal = () => {
-  //   this.setState(({ showModal }) => ({
-  //     showModal: !showModal,
-  //   }));
-  // };
-  ///////////////////////////////////////////////////////
+  componentDidUpdate(_, prevState) {
+    const { contacts } = this.state;
+    if (contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(contacts));
+    }
+  }
+
+  handleInputChange = ({ target }) => {
+    this.setState({ [target.name]: target.value });
+  };
+
+  handleSubmit = evt => {
+    evt.preventDefault();
+    const { name, number, contacts } = this.state;
+
+    if (contacts.find(contact => contact.name === name)) {
+      alert(`${name} is already in your phonebook`);
+    } else if (contacts.find(contact => contact.number === number)) {
+      alert('This number exist in your phonebook');
+    } else {
+      this.setState(prevState => ({
+        contacts: [
+          ...prevState.contacts,
+          this.createContact({
+            name: name,
+            number: number,
+          }),
+        ],
+      }));
+    }
+
+    evt.currentTarget.reset();
+  };
+
+  createContact = data => {
+    const newContact = {
+      ...data,
+      id: nanoid(),
+    };
+    return newContact;
+  };
+
+  handleSearchChange = () => {
+    const { contacts, filter } = this.state;
+    return contacts.filter(contact =>
+      contact.name.toLowerCase().includes(filter.toLowerCase())
+    );
+  };
+
+  handleFilter = evt => {
+    this.setState({ filter: evt.currentTarget.value });
+  };
+
+  handleDeleteContact = id => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== id),
+    }));
+  };
 
   render() {
-    // const { showModal } = this.state;
+    const { state, handleInputChange, handleSubmit, handleFilter } = this;
     return (
       <div
         style={{
+          height: '100vh',
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          flexDirection: 'column',
-          fontSize: 40,
+          fontSize: 20,
           color: '#010101',
         }}
       >
-        <div>
-          <h1>Selected video: {this.state.selectedVideo}</h1>
-          <VideoList videos={videos} onSelect={this.selectVideo} />
-          <Player url={this.state.selectedVideo} />
-        </div>
-        {/* //////////////////////// Components LESSON 1///////////////////////////////// */}
-        {/* <button type="button" onClick={this.toggleModal}>
-          Open Modal
-        </button>
-        <IconBtn onClick={this.toggleModal}>Open Modal</IconBtn>
+        <h1>Phonebook</h1>
+        <ContactForm
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+        />
 
-        <Tabs />
-        {!showModal && <Clock />}
-        {showModal && (
-          <Modal handleCloseModal={this.toggleModal}>
-            <h1>Glory to Ukraine!!! This is content of Modal how children</h1>
-            <p>
-              asdefhaskndv.,zxmnvb;SUEG fh'osakjdfLSKNVC/LX
-              ZNCVoSDHF'apwsighfpsskdFHN sldvkhNZD;LKJFH
-            </p>
-            <button type="button" onClick={this.toggleModal}>
-              Close Modal
-            </button>
-          </Modal>
-        )} */}
-        {/* ///////////////////////////////////////////////////////////////// */}
+        <h2>Contacts</h2>
+        <Filter option={state.filter} handleFilter={handleFilter} />
+        <ContactList
+          handleDeleteContact={this.handleDeleteContact}
+          options={this.handleSearchChange()}
+        />
       </div>
     );
   }
