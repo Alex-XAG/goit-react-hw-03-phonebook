@@ -1,24 +1,38 @@
 import React from 'react';
-import { Modal } from './Modal/Modal';
-import { Clock } from './Clock/Clock';
-import { Tabs } from './Tabs/Tabs';
-import { IconBtn } from './IconBtn/IconBtn';
+import videos from '../videos.json';
+import { Player } from './Player/Player';
+import { VideoList } from './VideoList/VideoList';
+////////////////////// Imports LESSON 1/////////////////////
+// import { Modal } from './Modal/Modal';
+// import { Clock } from './Clock/Clock';
+// import { Tabs } from './Tabs/Tabs';
+// import { IconBtn } from './IconBtn/IconBtn';
+////////////////////////////////////////////////////////////
 
 export class App extends React.Component {
   state = {
-    todos: [],
-    filter: '',
-    showModal: false,
+    selectedVideo: null,
   };
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
+  selectVideo = link => {
+    this.setState({ selectedVideo: link });
   };
+  ////////////////////////// Lesson 1 ///////////////////
+  // state = {
+  //   todos: [],
+  //   filter: '',
+  //   showModal: false,
+  // };
+
+  // toggleModal = () => {
+  //   this.setState(({ showModal }) => ({
+  //     showModal: !showModal,
+  //   }));
+  // };
+  ///////////////////////////////////////////////////////
 
   render() {
-    const { showModal } = this.state;
+    // const { showModal } = this.state;
     return (
       <div
         style={{
@@ -30,7 +44,13 @@ export class App extends React.Component {
           color: '#010101',
         }}
       >
-        <button type="button" onClick={this.toggleModal}>
+        <div>
+          <h1>Selected video: {this.state.selectedVideo}</h1>
+          <VideoList videos={videos} onSelect={this.selectVideo} />
+          <Player url={this.state.selectedVideo} />
+        </div>
+        {/* //////////////////////// Components LESSON 1///////////////////////////////// */}
+        {/* <button type="button" onClick={this.toggleModal}>
           Open Modal
         </button>
         <IconBtn onClick={this.toggleModal}>Open Modal</IconBtn>
@@ -48,7 +68,8 @@ export class App extends React.Component {
               Close Modal
             </button>
           </Modal>
-        )}
+        )} */}
+        {/* ///////////////////////////////////////////////////////////////// */}
       </div>
     );
   }
