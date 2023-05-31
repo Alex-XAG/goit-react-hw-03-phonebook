@@ -8,7 +8,7 @@ export class Clock extends React.Component {
   intervalId = null;
 
   componentDidMount() {
-    console.log('setInterval');
+    // console.log('setInterval');
 
     this.intervalId = setInterval(
       () => this.setState({ time: new Date().toLocaleTimeString() }),

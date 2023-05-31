@@ -1,6 +1,7 @@
 import React from 'react';
 
-export class Tabs extends React.Component {
+// Alternative of shouldComponentUpdate export class Tabs extends React.PureComponent {//...}
+export class Tabs extends React.PureComponent {
   state = {
     activeTabIdx: 0,
     items: [
@@ -21,13 +22,17 @@ export class Tabs extends React.Component {
       },
     ],
   };
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   return nextState.activeTabIdx !== this.state.activeTabIdx;
+  // }
+
   setActiveTabIdx = idx => {
     this.setState({ activeTabIdx: idx });
   };
 
   render() {
-    console.log('Re-render');
-
+    console.log('re-render');
     const { activeTabIdx, items } = this.state;
 
     const activeTab = this.state.items[activeTabIdx];

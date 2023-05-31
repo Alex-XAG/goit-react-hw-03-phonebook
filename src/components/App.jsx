@@ -2,6 +2,7 @@ import React from 'react';
 import { Modal } from './Modal/Modal';
 import { Clock } from './Clock/Clock';
 import { Tabs } from './Tabs/Tabs';
+import { IconBtn } from './IconBtn/IconBtn';
 
 export class App extends React.Component {
   state = {
@@ -32,6 +33,8 @@ export class App extends React.Component {
         <button type="button" onClick={this.toggleModal}>
           Open Modal
         </button>
+        <IconBtn onClick={this.toggleModal}>Open Modal</IconBtn>
+
         <Tabs />
         {!showModal && <Clock />}
         {showModal && (
