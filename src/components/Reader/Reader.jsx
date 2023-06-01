@@ -1,4 +1,5 @@
 import React from 'react';
+import { Controls } from './Conrols';
 
 export class Reader extends React.Component {
   state = {
@@ -12,28 +13,25 @@ export class Reader extends React.Component {
   };
 
   render() {
+    const { publicationIndex } = this.state;
+    const { publications } = this.props;
+    const currentPublication = publications[publicationIndex];
     return (
       <div>
-        <section>
-          <button type="button" onClick={() => this.changeIndex(-1)}>
-            Back
-          </button>
-          <button type="button" onClick={() => this.changeIndex(1)}>
-            Next
-          </button>
-        </section>
+        <Controls
+          changeIndex={this.changeIndex}
+          publicationIndex={publicationIndex}
+          publications={publications}
+        />
 
         <p>
-          {this.state.publicationIndex + 1}/{this.props.publications.length}
+          {publicationIndex + 1}/{publications.length}
         </p>
 
-        {/* <article>
-          <h2>Title of Article</h2>
-          <p>
-            Text of article Text of article Text of article Text of articleText
-            of articleText of articleText of articleText of article
-          </p>
-        </article> */}
+        <article>
+          <h2>{currentPublication.title}</h2>
+          <p>{currentPublication.description}</p>
+        </article>
       </div>
     );
   }

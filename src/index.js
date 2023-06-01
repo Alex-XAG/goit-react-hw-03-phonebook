@@ -1,17 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import { AppStudy } from './components/AppStudy';
-// import { Reader } from 'components/Reader/Reader';
+import { Reader } from 'components/Reader/Reader';
 import { App } from 'components/App';
 import './index.css';
-// import publications from './publications.json';
+import publications from './publications.json';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    {/* <App /> */}
 
-    {/* <AppStudy />
+    {/* <AppStudy /> */}
 
-    <Reader publications={publications} /> */}
+    <Reader publications={publications} />
   </React.StrictMode>
 );
