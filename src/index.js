@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import { AppStudy } from './components/AppStudy';
-import { Reader } from 'components/Reader/Reader';
+import { Reader } from 'components/StudyComponents/Reader/Reader';
 import { App } from 'components/App';
 import './index.css';
 import publications from './publications.json';

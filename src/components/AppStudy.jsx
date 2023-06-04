@@ -1,12 +1,12 @@
 import React from 'react';
 import videos from '../videos.json';
-import { Player } from './Player/Player';
-import { VideoList } from './VideoList/VideoList';
+import { Player } from './StudyComponents/Player/Player';
+import { VideoList } from './StudyComponents/VideoList/VideoList';
 ////////////////////// Imports LESSON 1/////////////////////
-import { Modal } from './Modal/Modal';
-import { Clock } from './Clock/Clock';
-import { Tabs } from './Tabs/Tabs';
-import { IconBtn } from './IconBtn/IconBtn';
+import { Modal } from './StudyComponents/Modal/Modal';
+import { Clock } from './StudyComponents/Clock/Clock';
+import { Tabs } from './StudyComponents/Tabs/Tabs';
+import { IconBtn } from './StudyComponents/IconBtn/IconBtn';
 ////////////////////////////////////////////////////////////
 
 export class AppStudy extends React.Component {
